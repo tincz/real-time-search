@@ -15,7 +15,7 @@ export default function SearchTwo() {
 
 		useEffect(() => {
 			const getSearch = async () => {
-				const response = await fetch(`http://localhost:4000/profiles`, {
+				const response = await fetch(`https://fast-reaches-27646.herokuapp.com/profiles`, {
 					method: 'GET',
 				})
 					const data = await response.json();

@@ -7,6 +7,7 @@ import 'index.css';
 import AppNavbar from 'components/AppNavbar';
 import SearchOne from 'components/SearchOne';
 import SearchTwo from 'components/SearchTwo';
+import Home from 'components/Home';
 
 export default function App() {
   return (
@@ -14,6 +15,7 @@ export default function App() {
       <BrowserRouter>
         <AppNavbar/>
           <Switch>
+            <Route exact path="/" component={Home}/>
             <Route exact path="/search-one" component={SearchOne}/>
             <Route exact path="/search-two" component={SearchTwo}/> 
           </Switch>

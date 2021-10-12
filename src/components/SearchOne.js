@@ -16,7 +16,7 @@ export default function SearchOne() {
 	function searchOne(e){
 		e.preventDefault();
 
-		fetch(`http://localhost:4000/profiles`, {
+		fetch(`https://fast-reaches-27646.herokuapp.com/profiles`, {
 			method: 'GET',	
 		})
 		.then(res => res.json())
