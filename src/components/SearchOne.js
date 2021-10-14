@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import 'components/search.css';
 
 // Bootstrap Components
 import Form from 'react-bootstrap/Form';
@@ -42,24 +43,26 @@ export default function SearchOne() {
 
 	return (
 		<Container fluid>
-			<Row className="justify-content-center">
+			<Row className="justify-content-center" id="searchbar">
 				<Col sm={12} md={4}>
 					<Form onSubmit={searchOne}>
 				        <input
+				        	className="col-md-8"
 				            type="text"
-				            id="search_one"
+				            id="search"
 				            value={info}
 				            onChange={(e) => setInfo(e.target.value)}
 				            placeholder="Search Country or Code"
 				        />
         				<Button 
+        					id="button"
         					variant="primary" 
         					type="submit">Search</Button>
 					</Form>
 				</Col>
 			</Row>
 
-			<Row className="justify-content-center">
+			<Row className="justify-content-center" id="table">
 				<Col sm={12} md={8}>
 					<Table striped bordered hover responsive>
 						<thead>

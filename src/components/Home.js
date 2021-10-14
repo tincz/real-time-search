@@ -1,9 +1,10 @@
 import React from 'react';
+import 'index.css';
 
 export default function AppNavbar(){
 	return(
 		<div>
-			<h1>Welcome To Real Time Seach</h1>
+			<h1>Welcome To Real Time Search</h1>
 				<h2>Instructions:</h2>
 					<h5>There are two search tabs on this app.</h5>
 						<li>On Search Tab - Type in the country or country code on the search bar and by clicking search, the results which is the person profile from the API will be display on the table.</li>

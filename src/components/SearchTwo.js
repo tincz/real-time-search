@@ -1,61 +1,61 @@
 import React, {useState, useEffect} from 'react';
+import 'components/search.css';
 
 // Bootstrap Components
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
-import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table';
 
 export default function SearchTwo() {
 	const [profiles, setProfiles] = useState([]);
-	const [search, setSearch] = useState([]);
-	const [info, setInfo] = useState([]);
+	const [text, setText] = useState('');
+	const [suggestion, setSuggestion] = useState([]);
 
-		useEffect(() => {
-			const getSearch = async () => {
-				const response = await fetch(`https://fast-reaches-27646.herokuapp.com/profiles`, {
-					method: 'GET',
-				})
-					const data = await response.json();
-					console.log(data)
-					setProfiles(data);
+	useEffect(() => {
+		const loadProfiles = async () => {
+			const response = await fetch('https://fast-reaches-27646.herokuapp.com/profiles', {
+			method: 'GET',
+			});
+			const data = await response.json();
+			console.log(data);
+			setProfiles(data);
+		}
+		loadProfiles();
+	}, []);
 
-					const getProfile = data.filter(function (search) {
-						if (search.country_code.toLowerCase() === `${info}`){
-							return search.country_code.toLowerCase() === `${info}`;
-						}	
-
-						if (search.country.toLowerCase() === `${info}`){
-							return search.country.toLowerCase() === `${info}`;
-						}
-					});
-					console.log(getProfile);
-					setSearch(getProfile);
-				}
-		}, [info]); 
+	const onChangeHandler = (text)=> {
+		let matches = []
+		if (text.length>0) {
+			matches = profiles.filter(profiles => {
+				const regex = new RegExp(`${text}`, "gi");
+				return profiles.country.match(regex) || profiles.country_code.match(regex)
+			})
+		}
+		console.log(matches)
+		setSuggestion(matches)
+		setText(text)
+	}
 
 	return (
 		<Container fluid>
-			<Row className="justify-content-center">
+			<Row className="justify-content-center" id="searchbar">
 				<Col sm={12} md={4}>
 					<Form>
 				        <input
+				        	className="col-md-12"
 				            type="text"
-				            id="search_one"
-				            value={info}
-				            onChange={(e) => setInfo(e.target.value)}
+				            id="search"
+				            value={text}
+				            onChange={e => onChangeHandler(e.target.value)}
 				            placeholder="Search Country or Code"
 				        />
-        				<Button 
-        					variant="success" 
-        					type="submit">Search</Button>
 					</Form>
 				</Col>
 			</Row>
 
-			<Row className="justify-content-center">
+			<Row className="justify-content-center" id="table">
 				<Col sm={12} md={8}>
 					<Table striped bordered hover responsive>
 						<thead>
@@ -71,15 +71,15 @@ export default function SearchTwo() {
 						</thead>
 						<tbody>
 							{
-								search.map((search) => (
-									<tr key={search._id}>
-										<td>{search.first_name}</td>
-										<td>{search.last_name}</td>
-										<td>{search.email}</td>
-										<td>{search.gender}</td>
-										<td>{search.city}</td>
-										<td>{search.country}</td>
-										<td>{search.country_code}</td>
+								suggestion.map((suggestion) => (
+									<tr key={suggestion._id}>
+										<td>{suggestion.first_name}</td>
+										<td>{suggestion.last_name}</td>
+										<td>{suggestion.email}</td>
+										<td>{suggestion.gender}</td>
+										<td>{suggestion.city}</td>
+										<td>{suggestion.country}</td>
+										<td>{suggestion.country_code}</td>
 									</tr>
 								))
 							}

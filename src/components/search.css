@@ -1,0 +1,13 @@
+#search {
+	height: 2.4rem;
+	border-radius: .5rem;
+	margin-right: 5px;
+}
+
+#button {
+	border-radius: .5rem;
+}
+
+#table, #searchbar {
+	padding-top: 1rem;
+}
